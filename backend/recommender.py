@@ -216,6 +216,13 @@ def recommend(contractors, request):
         for contractor in ranked[:3]
     ]
 
+    if __package__:
+        from .ai_explanations import improve_explanations
+    else:
+        from ai_explanations import improve_explanations
+
+    cards = improve_explanations(cards, ranked[:3], request)
+
     message = result["message"]
 
     if 0 < len(ranked) < 3:
